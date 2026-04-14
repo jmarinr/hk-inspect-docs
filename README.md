@@ -4,36 +4,37 @@ API documentation and playground for the HK Inspect integration.
 
 **Client:** La Regional de Seguros, S.A.  
 **Provider:** Henkan CX  
-**Version:** v1.0
+**Version:** v1.0  
+**Live URL:** https://jmarinr.github.io/hk-inspect-docs/
 
 ---
 
-## Getting started
-
-### 1. Install dependencies
+## Deploy (GitHub Actions — auto build on push)
 
 ```bash
-npm install
+# 1. Clone or initialize your repo
+git clone https://github.com/jmarinr/hk-inspect-docs.git
+cd hk-inspect-docs
+
+# 2. Copy all these files into the repo root
+# (overwrite everything)
+
+# 3. Push to main — GitHub Actions builds and deploys automatically
+git add .
+git commit -m "HK Inspect Developer Portal v1.0"
+git push origin main
 ```
 
-### 2. Run locally
+GitHub Actions will:
+1. Install Node 20 + dependencies
+2. Run `npm run build`
+3. Deploy the `dist/` folder to GitHub Pages
 
-```bash
-npm run dev
-```
+**Build time:** ~2 minutes after each push.
 
-Opens at `http://localhost:5173/hk-inspect-portal/`
+### One-time GitHub Pages setup (only needed once)
 
-### 3. Deploy to GitHub Pages
-
-```bash
-npm run deploy
-```
-
-The portal will be live at:
-```
-https://<your-github-username>.github.io/hk-inspect-portal/
-```
+Go to your repo → **Settings → Pages** → Source: **GitHub Actions**
 
 ---
 
@@ -45,53 +46,33 @@ https://<your-github-username>.github.io/hk-inspect-portal/
 | `dev@hkinspect.com` | `hkinspect2026` | Developer |
 | `lrds@hkinspect.com` | `lrds2026` | Integration |
 
-> These are mock credentials for the demo. Replace with Firebase Auth or Auth0 for production.
+---
+
+## Local development
+
+```bash
+npm install
+npm run dev
+# Opens at http://localhost:5173/hk-inspect-docs/
+```
 
 ---
 
 ## Project structure
 
 ```
-hk-inspect-portal/
+hk-inspect-docs/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml     ← Auto-build + deploy on push to main
 ├── src/
-│   ├── App.jsx        # Full portal — auth, docs, playground, token manager
-│   └── main.jsx       # React entry point
+│   ├── App.jsx            ← Full portal (auth, docs, playground, tokens)
+│   └── main.jsx           ← React entry point
 ├── index.html
-├── vite.config.js     # GitHub Pages base path configured
+├── vite.config.js         ← base: '/hk-inspect-docs/'
 ├── package.json
 └── README.md
 ```
-
----
-
-## Deploying to GitHub Pages — step by step
-
-```bash
-# 1. Create your repo on GitHub (name: hk-inspect-portal)
-
-# 2. Initialize and push
-git init
-git add .
-git commit -m "Initial commit — HK Inspect Developer Portal v1.0"
-git branch -M main
-git remote add origin https://github.com/<your-username>/hk-inspect-portal.git
-git push -u origin main
-
-# 3. Deploy
-npm run deploy
-```
-
-After ~2 minutes, GitHub Pages will serve the portal at:
-`https://<your-username>.github.io/hk-inspect-portal/`
-
----
-
-## Roadmap
-
-- [ ] Firebase Auth integration (Google SSO + Microsoft SSO real)
-- [ ] Real token issuance from backend
-- [ ] Webhooks section in API docs
-- [ ] Changelog page
 
 ---
 
